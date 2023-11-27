@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://bhvf8kacll4m7"]
+
+[ext_resource type="Script" path="res://3D_Maze_gen.gd" id="1_prver"]
+[ext_resource type="Script" path="res://CharacterBody3D.gd" id="3_6qc0b"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_shdyw"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nfswh"]
+size = Vector3(600, 2, 600)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4pmyo"]
+size = Vector3(600, 2, 600)
+
+[node name="Main" type="Node3D"]
+
+[node name="Maze" type="Node3D" parent="."]
+script = ExtResource("1_prver")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+script = ExtResource("3_6qc0b")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="CharacterBody3D/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 0.64011, 0.768283, 0, -0.768283, 0.64011, 9.51456, 15, -14.437)
+shadow_enabled = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("CapsuleShape3D_shdyw")
+
+[node name="Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_nfswh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("BoxMesh_4pmyo")
